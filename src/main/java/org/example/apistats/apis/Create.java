@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Create {
     TokenBucketAlgo tokenBucket = new TokenBucketAlgo(10, 2);
     @GetMapping("/greet")
-    public String greetUser (HttpServletRequest request){
+    public String greetUser(HttpServletRequest request){
         if(tokenBucket.handle()){
             String userIP = getClientIpAddress(request);
             try{
@@ -15,9 +15,11 @@ public class Create {
 
             }catch(InterruptedException e){}
             return "Hello, user at: " + userIP;
-        }else return "Too many requests. Please try again. ";
+        }else {
+            return "Too many requests. Please try again.";
+        }
     }
-    private String getClientIpAddress(HttpServletRequest request) {
+    public String getClientIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if(ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();

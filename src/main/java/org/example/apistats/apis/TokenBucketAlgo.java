@@ -7,12 +7,12 @@ public class TokenBucketAlgo {
     int tokens;
     int timeUnit;
     LocalTime lastCheck = LocalTime.now();
-    TokenBucketAlgo(int tokens, int timeUnit){
+    public TokenBucketAlgo(int tokens, int timeUnit){
         this.tokens = tokens;
         this.timeUnit = timeUnit;
     }
     int tokensInBucket = tokens;
-    boolean handle(){
+    public boolean handle(){
         LocalTime currentTime = LocalTime.now();
         Duration timePassed = Duration.between(this.lastCheck, currentTime);
         double tokensToAdd = (double) timePassed.getSeconds() * (this.tokens / (double) this.timeUnit);
